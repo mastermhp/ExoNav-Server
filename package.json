@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.0.42",
+    "@google/generative-ai": "^0.19.0",
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "imagekit": "^5.2.0",
