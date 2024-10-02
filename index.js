@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import fetch from 'node-fetch'; 
 import ImageKit from "imagekit";
 import mongoose from "mongoose";
 import UserChats from "./models/userchats.js";
@@ -150,6 +151,22 @@ app.put("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Error adding conversation!");
+  }
+});
+
+
+app.get('/exoplanets', async (req, res) => {
+  try {
+    const response = await fetch(`https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+top+6+*+from+pscomppars&format=json
+`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching exoplanet data:', error);
+    res.status(500).json({ error: 'Failed to fetch exoplanet data' });
   }
 });
 
